@@ -1,0 +1,51 @@
+lb_geom = -1 # x下界
+ub_geom = 1 # x上界
+dim_x = 10 # x维度
+dim_u = 1 # u维度
+
+## 神经网络相关
+name = "3*3*64_boundaryw3"
+# pre_train_path = path + '../output/3*3*64_dim2_lr1e-4_20000/network.pkl'
+pre_train_path = path + '../output/3*3*64_boundaryw3_200000/network.pkl'
+num_interior = 10000
+num_boundary = 2000 # 必须整除dim_x
+epochs = 1000 # adam优化器迭代次数
+in_dim = [2 for i in range(5)]
+Layers = [64, 64, 64] # 一个残差块中全连接网络结构，每层宽度都应该相等
+learning_rate = 0.00001 # 初始学习率 
+boundary_weight = 100 # 设置太大可能导致梯度爆炸
+num_res = 3 # 每个x分量通道的残差块数量
+weight_decay = 0.001 # L2正则项系数，防止损失值突增
+patience = max(10, epochs/10)
+
+***** name = 3*3*64_boundaryw3_1000 *****
+Loading data
+PINN_Main()
+Start training!
+It = 1, loss = 0.00206499, u_error = 0.10229937, finish: 0%
+It = 50, loss = 0.01282016, u_error = 0.10229937, finish: 5%
+It = 100, loss = 0.00020346, u_error = 0.00100392, finish: 10%
+It = 150, loss = 0.00009099, u_error = 0.00087783, finish: 15%
+It = 200, loss = 0.00008893, u_error = 0.00085356, finish: 20%
+It = 250, loss = 0.00008782, u_error = 0.00083995, finish: 25%
+It = 300, loss = 0.00008692, u_error = 0.00083292, finish: 30%
+It = 350, loss = 0.00008625, u_error = 0.00082794, finish: 35%
+It = 400, loss = 0.00008562, u_error = 0.00083084, finish: 40%
+It = 450, loss = 0.00008519, u_error = 0.00083194, finish: 45%
+It = 500, loss = 0.00008461, u_error = 0.00083330, finish: 50%
+It = 550, loss = 0.00008427, u_error = 0.00083527, finish: 55%
+It = 600, loss = 0.00008385, u_error = 0.00084126, finish: 60%
+It = 650, loss = 0.00008349, u_error = 0.00084353, finish: 65%
+It = 700, loss = 0.00037394, u_error = 0.00084703, finish: 70%
+It = 750, loss = 0.00008287, u_error = 0.00086157, finish: 75%
+It = 800, loss = 0.00008260, u_error = 0.00086099, finish: 80%
+It = 850, loss = 0.00008236, u_error = 0.00086850, finish: 85%
+It = 900, loss = 0.00141050, u_error = 0.00087113, finish: 90%
+It = 950, loss = 0.00008778, u_error = 0.00087113, finish: 95%
+It = 1000, loss = 0.00008161, u_error = 0.00088997, finish: 100%
+time = 1021.90s
+params = 376330
+min_loss = 0.00008149
+Relative error of u is 0.00031622 when drawing
+Mean absolute error of u is 0.00000057
+Relative error of u is 0.00088997

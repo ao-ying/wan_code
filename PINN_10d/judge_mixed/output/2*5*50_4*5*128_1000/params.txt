@@ -1,0 +1,58 @@
+lb_geom = -1 # x下界
+ub_geom = 1 # x上界
+dim_x = 10 # x维度
+dim_u = 1 # u维度
+
+## 神经网络相关
+name = "2*5*50_4*5*128"
+pre_train_path = path + '../output/5*50_dim2_sep_20000/network.pkl'
+num_interior = 6000
+num_boundary = 4000 # 必须整除dim_x
+epochs = 1000 # adam优化器迭代次数
+in_dim = [2 for i in range(5)]
+Layers_sep = [50, 50, 50, 50, 50] # 一个残差块中全连接网络结构，每层宽度都应该相等
+num_res_sep = 2
+Layers_unsep = [128, 128, 128, 128, 128]
+num_res_unsep = 4
+learning_rate = 0.0001 # 初始学习率 
+boundary_weight = 1 # 设置太大可能导致梯度爆炸
+num_res = 2 # 每个x分量通道的残差块数量
+weight_decay = 0.001 # L2正则项系数，防止损失值突增
+patience = max(10, epochs/10)
+
+***** name = 2*5*50_4*5*128_1000 *****
+Loading data
+PINN_Main(
+  (fc_first_unsep): Linear(in_features=10, out_features=128, bias=True)
+  (res_blocks_unsep): ModuleList(
+    (0-3): 4 x Residual()
+  )
+  (fc_last_unsep): Linear(in_features=128, out_features=1, bias=True)
+)
+Start training!
+It = 1, loss = 45.02909470, u_error = 74.47766445, finish: 0%
+It = 50, loss = 1.85507095, u_error = 17.01050245, finish: 5%
+It = 100, loss = 0.23803060, u_error = 9.01022297, finish: 10%
+It = 150, loss = 0.17123148, u_error = 6.08727236, finish: 15%
+It = 200, loss = 0.14005047, u_error = 5.16934532, finish: 20%
+It = 250, loss = 0.11920996, u_error = 4.83204377, finish: 25%
+It = 300, loss = 0.10337844, u_error = 4.64086414, finish: 30%
+It = 350, loss = 0.09076687, u_error = 4.50379111, finish: 35%
+It = 400, loss = 0.08056090, u_error = 4.39429173, finish: 40%
+It = 450, loss = 0.07222131, u_error = 4.30219227, finish: 45%
+It = 500, loss = 0.07140569, u_error = 4.22816029, finish: 50%
+It = 550, loss = 0.05959512, u_error = 4.15236657, finish: 55%
+It = 600, loss = 0.05482590, u_error = 4.08900824, finish: 60%
+It = 650, loss = 0.05548927, u_error = 4.08660832, finish: 65%
+It = 700, loss = 0.16469318, u_error = 3.99830956, finish: 70%
+It = 750, loss = 0.05210822, u_error = 3.93165965, finish: 75%
+It = 800, loss = 0.28587070, u_error = 3.90682624, finish: 80%
+It = 850, loss = 0.04603048, u_error = 3.82769771, finish: 85%
+It = 900, loss = 0.22526246, u_error = 3.80665043, finish: 90%
+It = 950, loss = 0.22608444, u_error = 3.80665043, finish: 95%
+Epoch 00965: reducing learning rate of group 0 to 5.0000e-05.
+It = 1000, loss = 0.03399907, u_error = 3.69549177, finish: 100%
+time = 1259.35s
+params = 588287
+min_loss = 0.03293737
+Relative error of u is 0.01020166 when drawing

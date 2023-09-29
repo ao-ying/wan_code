@@ -1,0 +1,19 @@
+lb_geom = -1 # x下界
+ub_geom = 1 # x上界
+dim_x = 2 # x维度
+dim_u = 1 # u维度
+
+## 神经网络相关
+name = "5*50_dim2_sep"
+num_interior = 20000
+num_boundary = 8000 # 必须整除dim_x
+epochs = 20000 # adam优化器迭代次数
+Layers = [50, 50, 50, 50, 50] # 一个残差块中全连接网络结构，每层宽度都应该相等
+learning_rate = 0.001 # 初始学习率 
+patience = max(10, epochs / 10) # 平原衰减学习率的patience个数
+boundary_weight = 1 # 设置太大可能导致梯度爆炸
+num_res = 2 # 每个x分量通道的残差块数量
+h = int(1000) # 学习率衰减相关
+r = 0.95 # 学习率每隔h轮迭代乘r
+weight_decay = 0.001 # L2正则项系数，防止损失值突增
+patience = max(10, epochs/10)

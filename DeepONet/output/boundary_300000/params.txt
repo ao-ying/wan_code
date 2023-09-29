@@ -1,0 +1,57 @@
+lb_geom = -1 # x下界
+ub_geom = 1 # x上界
+dim_x = 2 # x维度
+dim_u = 1 # u维度
+
+## 神经网络相关
+name = "boundary"
+epochs = 300000
+p = 100
+Layers_branch = [2560, 2560]
+Layers_trunk = [1280, 1280, 1280]
+learning_rate = 0.0001
+dim_s = 64 # 感知点内部维度
+dim_y = 500 # y训练点维度
+num_boundary = 80 # 每条边上选择的感知点数
+dim_base = 5 # 基为1,sin(pi * x),cos(pi * x),...,sin(dim_base * pi * x),cos(dim_base * pi * x)拓展至二维
+patience = max(10, epochs/10)
+
+***** name = boundary_300000 *****
+Loading data
+DeepONet(
+  (branck_net): ModuleList(
+    (0): Linear(in_features=4096, out_features=2560, bias=True)
+    (1): Linear(in_features=2560, out_features=2560, bias=True)
+    (2): Linear(in_features=2560, out_features=100, bias=True)
+  )
+  (trunk_net): ModuleList(
+    (0): Linear(in_features=2, out_features=1280, bias=True)
+    (1-2): 2 x Linear(in_features=1280, out_features=1280, bias=True)
+    (3): Linear(in_features=1280, out_features=100, bias=True)
+  )
+)
+Start training!
+It = 15000, loss = 0.19695039, u_error = 0.99855087, finish: 5%
+It = 30000, loss = 0.10380132, u_error = 0.76653358, finish: 10%
+It = 45000, loss = 0.05064925, u_error = 0.57480550, finish: 15%
+It = 60000, loss = 0.03791122, u_error = 0.37481029, finish: 20%
+It = 75000, loss = 0.02109990, u_error = 0.30872285, finish: 25%
+It = 90000, loss = 0.01240129, u_error = 0.29173974, finish: 30%
+It = 105000, loss = 0.01186095, u_error = 0.25918928, finish: 35%
+It = 120000, loss = 0.00681181, u_error = 0.24311048, finish: 40%
+It = 135000, loss = 0.00600355, u_error = 0.21477626, finish: 45%
+It = 150000, loss = 0.00367307, u_error = 0.16967215, finish: 50%
+It = 165000, loss = 0.00373272, u_error = 0.10692346, finish: 55%
+It = 180000, loss = 0.00169997, u_error = 0.09180436, finish: 60%
+It = 195000, loss = 0.00125916, u_error = 0.07938188, finish: 65%
+It = 210000, loss = 0.00319754, u_error = 0.07049169, finish: 70%
+It = 225000, loss = 0.00099404, u_error = 0.07055098, finish: 75%
+It = 240000, loss = 0.00107103, u_error = 0.06365415, finish: 80%
+It = 255000, loss = 0.00071243, u_error = 0.05812863, finish: 85%
+It = 270000, loss = 0.00145280, u_error = 0.05695733, finish: 90%
+It = 285000, loss = 0.00052626, u_error = 0.05728873, finish: 95%
+It = 300000, loss = 0.00145317, u_error = 0.05586064, finish: 100%
+time = 100139.27s
+params = 20711881
+min_loss = 0.00048186
+Final: Relative error of u is 0.05586064

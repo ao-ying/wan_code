@@ -1,0 +1,47 @@
+lb_geom = -1 # x下界
+ub_geom = 1 # x上界
+dim_x = 2 # x维度
+dim_u = 1 # u维度
+
+## 神经网络相关
+name = "3*3*64_boundaryw3"
+num_interior = 50000
+num_boundary = 50000 # 必须整除dim_x
+epochs = 200000
+Layers = [64, 64, 64] # 一个残差块中全连接网络结构，每层宽度都应该相等
+learning_rate = 0.0001 # 初始学习率 
+boundary_weight = 100 # 设置太大可能导致梯度爆炸
+num_res = 3 # 每个x分量通道的残差块数量
+weight_decay = 0.001 # L2正则项系数，防止损失值突增
+patience = max(10, epochs/10)
+
+***** name = 3*3*64_boundaryw3_200000 *****
+Loading data
+PINN()
+Start training!
+It = 10000, loss = 0.98222071, u_error = 0.06703467, finish: 5%
+It = 20000, loss = 6.73863363, u_error = 0.03103229, finish: 10%
+It = 30000, loss = 4.98259592, u_error = 0.01677926, finish: 15%
+It = 40000, loss = 1.42239141, u_error = 0.01123095, finish: 20%
+It = 50000, loss = 0.91001827, u_error = 0.00898798, finish: 25%
+It = 60000, loss = 0.11895580, u_error = 0.00619405, finish: 30%
+It = 70000, loss = 0.22821938, u_error = 0.00583504, finish: 35%
+It = 80000, loss = 4.79032326, u_error = 0.00525787, finish: 40%
+It = 90000, loss = 0.58178937, u_error = 0.00450650, finish: 45%
+It = 100000, loss = 0.02122879, u_error = 0.00402100, finish: 50%
+It = 110000, loss = 0.86018050, u_error = 0.00358316, finish: 55%
+It = 120000, loss = 0.03581964, u_error = 0.00340832, finish: 60%
+It = 130000, loss = 0.12048783, u_error = 0.00286461, finish: 65%
+It = 140000, loss = 0.09047970, u_error = 0.00224421, finish: 70%
+It = 150000, loss = 1.04984081, u_error = 0.00221369, finish: 75%
+It = 160000, loss = 1.20450807, u_error = 0.00218801, finish: 80%
+It = 170000, loss = 0.04215385, u_error = 0.00187288, finish: 85%
+It = 180000, loss = 0.00997676, u_error = 0.00199505, finish: 90%
+It = 190000, loss = 1.32476926, u_error = 0.00143965, finish: 95%
+It = 200000, loss = 0.03285442, u_error = 0.00136868, finish: 100%
+time = 35936.45s
+params = 75266
+min_loss = 0.00432742
+Final: Relative error of u is 0.00042801
+Mean squared error of u is 0.00013238
+Relative error of u is 0.00042801
