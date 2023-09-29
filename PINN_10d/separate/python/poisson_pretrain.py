@@ -181,12 +181,12 @@ if __name__ == "__main__":
     name = "3*3*64_boundaryw3"
     # pre_train_path = path + '../output/3*3*64_dim2_lr1e-4_20000/network.pkl'
     pre_train_path = path + '../output/3*3*64_boundaryw3_200000/network.pkl'
-    num_interior = 100
-    num_boundary = 20 # 必须整除dim_x
+    num_interior = 10000
+    num_boundary = 2000 # 必须整除dim_x
     epochs = 1000 # adam优化器迭代次数
     in_dim = [2 for i in range(5)]
     Layers = [64, 64, 64] # 一个残差块中全连接网络结构，每层宽度都应该相等
-    learning_rate = 0.000001 # 初始学习率 
+    learning_rate = 0.00001 # 初始学习率 
     boundary_weight = 100 # 设置太大可能导致梯度爆炸
     num_res = 3 # 每个x分量通道的残差块数量
     weight_decay = 0.001 # L2正则项系数，防止损失值突增

@@ -240,8 +240,8 @@ if __name__ == "__main__":
     
     ## 神经网络相关
     name = "3*3*64_boundaryw5"
-    num_interior = 30000
-    num_boundary = 30000 # 必须整除dim_x
+    num_interior = 50000
+    num_boundary = 50000 # 必须整除dim_x
     epochs = 200000
     Layers = [64, 64, 64] # 一个残差块中全连接网络结构，每层宽度都应该相等
     learning_rate = 0.0001 # 初始学习率 
