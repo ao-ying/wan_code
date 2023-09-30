@@ -21,6 +21,7 @@ PINN_10d # PINN求解十维泊松方程
     python
     output
 DeepONet # DeepONet求解二维泊松方程
+  data
   python
   output
 ```
@@ -44,16 +45,22 @@ GPU: NVIDIA GeForce RTX 3090
 
 ## 3.1、PINN求解二维泊松方程
 
-运行`code/PINN_2d/separate/predict.py`，如果用文件的形式给定预测点，请将预测点文件放在`code/PINN_2d/separate/data`文件夹中，预测点文件应该是(N,2)维数组，其中N是预测点的个数。
+运行`code/PINN_2d/separate/predict.py`，默认预测竞赛给定的测试集并画图，同时将预测值存为`code/PINN_2d/separate/u_pred.txt`文件。
+
+如果用文件的形式给定预测点，请将预测点文件放在`code/PINN_2d/separate/data`文件夹中并命名为`points.txt`，预测点文件应该是`(N,2)`维数组，其中`N`是预测点的个数。并将`code/PINN_2d/separate/predict.py`中的参数`is_file`设置为`True`，然后运行文件即可得到指定点处的值，同时将预测值存为`code/PINN_2d/separate/u_pred.txt`文件。
 
  
 
 ## 3.2、PINN求解十维泊松方程
 
-运行`code/PINN_10d/separate/predict.py`，如果用文件的形式给定预测点，请将预测点文件放在`code/PINN_10d/separate/data`文件夹中，预测点文件应该是(N,10)维数组，其中N是预测点的个数。
+运行`code/PINN_10d/separate/predict.py`，默认预测竞赛给定的测试集并画图，同时将预测值存为`code/PINN_10d/separate/u_pred.txt`文件。
+
+如果用文件的形式给定预测点，请将预测点文件放在`code/PINN_10d/separate/data`文件夹中并命名为`points.txt`，预测点文件应该是`(N,10)`维数组，其中`N`是预测点的个数。并将`code/PINN_10d/separate/predict.py`中的参数`is_file`设置为`True`，然后运行文件即可得到指定点处的值，同时将预测值存为`code/PINN_10d/separate/u_pred.txt`文件。
 
  
 
 ## 3.3、DeepONet求解二维泊松方程
 
-运行`code/DeepONet_2d/predict.py`，如果用文件的形式给定预测点，请将预测点文件放在`code/DeepONet_2d`文件夹中，预测点文件应该是(N,2)维数组，其中N是预测点的个数。
+运行`code/DeepONet_2d/predict.py`，默认预测竞赛给定的测试集并画图，同时将预测值存为`code/DeepONet_2d/u_pred.txt`文件。
+
+如果用文件的形式给定预测点，请将预测点文件放在`code/DeepONet_2d/data`文件夹中并命名为`points.txt`，预测点文件应该是`(N,2)`维数组，其中`N`是预测点的个数。并将`code/DeepONet_2d/predict.py`中的参数`is_file`设置为`True`，然后运行文件即可得到指定点处的值，同时将预测值存为`code/DeepONet_2d/u_pred.txt`文件。

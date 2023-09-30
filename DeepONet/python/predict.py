@@ -24,6 +24,7 @@ def f(sensors):
     return f_in
 
 # 参数设置
+is_file = False
 lb_geom = -1 # x下界
 ub_geom = 1
 dim_s = 64 # 感知点内部维度
@@ -38,13 +39,15 @@ X2 = X2.flatten().reshape(dim_s*dim_s,1)
 sensors = np.c_[X1, X2] 
 
 # 得到测试集
-X1 = np.linspace(lb_geom, ub_geom, dim_y)
-X2 = np.linspace(lb_geom, ub_geom, dim_y)
-X1, X2 = np.meshgrid(X1, X2)
-X1 = X1.flatten().reshape(dim_y*dim_y,1)
-X2 = X2.flatten().reshape(dim_y*dim_y,1)
-ys = np.c_[X1, X2] 
-# ys = np.loadtxt(path + "../data/points.txt", dtype = float, delimiter=" ") # 也可以给定测试集，测试集需要是(N,2)维数据
+if is_file: # 给定测试集，测试集需要是(N,2)维数据
+    ys = np.loadtxt(path + "../data/points.txt", dtype = float, delimiter=" ")
+else:
+    X1 = np.linspace(lb_geom, ub_geom, dim_y)
+    X2 = np.linspace(lb_geom, ub_geom, dim_y)
+    X1, X2 = np.meshgrid(X1, X2)
+    X1 = X1.flatten().reshape(dim_y*dim_y,1)
+    X2 = X2.flatten().reshape(dim_y*dim_y,1)
+    ys = np.c_[X1, X2] 
 f_in = - f(sensors) # u = Laplace^{-1}(-f)
 f_in = torch.from_numpy(f_in).float().to(device_cpu)
 X_pred = ys
@@ -56,11 +59,15 @@ start = time.time()
 u_pred = model2.predict(f_in, X_pred).flatten()
 end = time.time()
 print("Inference time = %.2fs" % (end - start))
-fig, ax = plt.subplots()
-levels = np.arange(min(u_pred) - abs(max(u_pred) - min(u_pred)) / 10, max(u_pred) + abs(max(u_pred) - min(u_pred)) / 10, (max(u_pred) - min(u_pred)) / 100) 
-cs = ax.contourf(X1.reshape(dim_y,dim_y), X2.reshape(dim_y,dim_y), u_pred.reshape(dim_y,dim_y), levels,cmap=plt.get_cmap('Spectral'))
-cbar = fig.colorbar(cs)
-plt.xlabel('$x_1$')
-plt.ylabel('$x_2$')
-plt.title('$u$(pred)')
-plt.savefig(path + "u_pred.png", format="png", dpi=300, bbox_inches="tight")
+np.savetxt(path + "u_pred.txt", u_pred, fmt="%s", delimiter=' ')
+
+# 画图
+if not is_file:
+    fig, ax = plt.subplots()
+    levels = np.arange(min(u_pred) - abs(max(u_pred) - min(u_pred)) / 10, max(u_pred) + abs(max(u_pred) - min(u_pred)) / 10, (max(u_pred) - min(u_pred)) / 100) 
+    cs = ax.contourf(X1.reshape(dim_y,dim_y), X2.reshape(dim_y,dim_y), u_pred.reshape(dim_y,dim_y), levels,cmap=plt.get_cmap('Spectral'))
+    cbar = fig.colorbar(cs)
+    plt.xlabel('$x_1$')
+    plt.ylabel('$x_2$')
+    plt.title('$u$(pred)')
+    plt.savefig(path + "u_pred.png", format="png", dpi=300, bbox_inches="tight")
