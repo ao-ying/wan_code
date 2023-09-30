@@ -27,7 +27,7 @@ def f(sensors):
 lb_geom = -1 # x下界
 ub_geom = 1
 dim_s = 64 # 感知点内部维度
-dim_y = 500 # y内部训练点维度
+dim_y = 256 # 测试集维度
 
 # 生成感知点(sensors)
 X1 = np.linspace(lb_geom, ub_geom, dim_s)
@@ -52,7 +52,10 @@ X_pred = torch.from_numpy(X_pred).float().to(device_cpu)
 
 # 得到预测值并画图
 model2 = torch.load(path + '../output/boundary_300000/network.pkl', map_location=device_cpu)
+start = time.time()
 u_pred = model2.predict(f_in, X_pred).flatten()
+end = time.time()
+print("Inference time = %.2fs" % (end - start))
 fig, ax = plt.subplots()
 levels = np.arange(min(u_pred) - abs(max(u_pred) - min(u_pred)) / 10, max(u_pred) + abs(max(u_pred) - min(u_pred)) / 10, (max(u_pred) - min(u_pred)) / 100) 
 cs = ax.contourf(X1.reshape(dim_y,dim_y), X2.reshape(dim_y,dim_y), u_pred.reshape(dim_y,dim_y), levels,cmap=plt.get_cmap('Spectral'))
